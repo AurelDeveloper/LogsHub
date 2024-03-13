@@ -1,0 +1,19 @@
+{
+  "manifest_version": 3,
+  "name": "LogsHub",
+  "version": "1.0",
+  "description": "A hub with all the websites where you have created an account.",
+  "action": {
+    "default_icon": "icon.png",
+    "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "activeTab",
+    "history",
+    "storage",
+    "scripting"
+  ]
+}
