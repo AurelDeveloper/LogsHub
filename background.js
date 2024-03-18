@@ -1,3 +1,21 @@
+const fs = require('fs');
+
+// Speichern der Daten in einer JSON-Datei
+function saveData(data) {
+    fs.writeFile('userSites.json', JSON.stringify(data), (err) => {
+        if (err) throw err;
+        console.log('User sites have been saved to a JSON file.');
+    });
+}
+
+// Laden der Daten aus einer JSON-Datei
+function loadData(callback) {
+    fs.readFile('userSites.json', (err, data) => {
+        if (err) throw err;
+        callback(JSON.parse(data));
+    });
+}
+
 chrome.runtime.onInstalled.addListener(() => {
     chrome.history.search({text: '', maxResults: 1000000}, (data) => {
         let userSites = [];
@@ -11,16 +29,14 @@ chrome.runtime.onInstalled.addListener(() => {
                 }
             }
         }
-        chrome.storage.local.set({userSites: userSites}, () => {
-            console.log('User sites have been saved.');
-        });
+        saveData(userSites);
     });
 });
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     if (request.action === 'getUserSites') {
-        chrome.storage.local.get('userSites', (data) => {
-            sendResponse({userSites: data.userSites});
+        loadData((data) => {
+            sendResponse({userSites: data});
         });
         return true; // to indicate that the response is asynchronous
     }
