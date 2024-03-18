@@ -2,7 +2,7 @@
 
 LogsHub is a Google Chrome extension that creates a list of all the websites where the user has created an account.
 
-## ✨ Features
+## Features
 
 - Collects and stores websites where the user has created accounts.
 - Displays a list of these websites in a popup window.
@@ -14,6 +14,6 @@ LogsHub is a Google Chrome extension that creates a list of all the websites whe
 3. Enable "Developer mode" in the top right corner.
 4. Click on "Load unpacked extension" and select the folder where you cloned this repository.
 
-## 👌 Usage
+## Usage
 
 Click on the LogsHub icon in the Chrome extension bar to view the list of websites where you have created accounts.

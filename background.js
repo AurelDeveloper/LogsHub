@@ -40,4 +40,23 @@ chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
         });
         return true; // to indicate that the response is asynchronous
     }
+    if (request.action === 'startSearch') {
+        // Starten Sie die Suche hier
+        chrome.history.search({text: '', maxResults: 1000000}, (data) => {
+            let userSites = [];
+            for (let i = 0; i < data.length; i++) {
+                let url = data[i].url;
+                if (url.includes('/login') || url.includes('/signup') || url.includes('/register')) {
+                    let site = url.split('/')[2];
+                    site = site.replace('www.', ''); // Remove 'www.' from the site
+                    if (!userSites.includes(site)) {
+                        userSites.push(site);
+                    }
+                }
+            }
+            saveData(userSites);
+            sendResponse({result: 'Search started'});
+        });
+        return true; // to indicate that the response is asynchronous
+    }
 });
